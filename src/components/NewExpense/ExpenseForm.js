@@ -35,6 +35,7 @@ const ExpenseForm = (props) => {
             amount: '',
             date: ''
         });
+        props.toggleFormView();
     }
 
     return <form onSubmit={submitHandler}>
@@ -52,8 +53,9 @@ const ExpenseForm = (props) => {
                 <input type='date' min="2019-01-01" max="2022-12-31" onChange={dateChangeHandler} value={expense.date}/>
             </div>
             <div className="new-expense__actions">
+            <button onClick={props.toggleFormView}>Cancel</button>
                 <button type="submit">Add Expense</button>
-            </div>
+            </div>            
         </div>
     </form>
 }

@@ -1,6 +1,8 @@
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
-
+import ExpensesFilter from "./components/Expenses/ExpensesFilter";
+import Chart from './components/Chart/Chart';
+import Card from "./components/UI/Card";
 import {useState} from 'react';
 
 const App = () => {
@@ -28,16 +30,26 @@ const App = () => {
       },
     ]
   );
+  const [filtered, setFiltered] = useState('');
 
   const onSaveExpenseDate = (data) => {debugger;
     setExpenses([...expenses, data]);
   }
 
+  const onFilterDate = (date) => {
+    setFiltered(expenses.filter(ex => 
+      `${ex.date.getFullYear()}` == date
+    ));
+  }
+  
+
   return (
-    <div>
+    <Card className = "expenses"> 
       <NewExpense onSaveExpenseDate={onSaveExpenseDate}/>
-      <Expenses expenses={expenses} />
-    </div>
+      <ExpensesFilter onFilterDate={onFilterDate}/>
+      <Chart/>
+      <Expenses expenses={filtered?filtered:expenses} />
+    </Card>
   );
 }
 

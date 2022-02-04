@@ -1,7 +1,10 @@
 import './NewExpense.css';
 import ExpenseForm from './ExpenseForm';
+import { useState } from 'react';
 
 const NewExpense = (props) => {
+
+    const [formView, setFormView] = useState('');
 
     const onSaveExpenseDate = (data) => {
         props.onSaveExpenseDate({
@@ -10,9 +13,15 @@ const NewExpense = (props) => {
         });
     }
 
+    const toggleFormView = () => {
+        setFormView(!formView);
+    }
+
     return <div className='new-expense'>
-        <ExpenseForm onSaveExpenseDate={onSaveExpenseDate}/>
+        {!formView && <button onClick={toggleFormView}> Add New Expense</button>}
+        {formView && <ExpenseForm toggleFormView={toggleFormView} onSaveExpenseDate={onSaveExpenseDate}/>}
     </div>
 }
+
 
 export default NewExpense;
